@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <act_window id="action_other_checkouts_button"
+                name="Open Other Checkouts"
+                res_model="library.checkout"
+                view_mode="tree,form"
+                domain="[('member_id', '=', default_member_id),
+            ('state', 'in', ['open']),
+            ('id', '!=', active_id)]"/>
+    <record id="view_tree_checkout" model="ir.ui.view">
+        <field name="name">Checkout Tree</field>
+        <field name="model">library.checkout</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-muted="state in ['done', 'cancel']"
+                decoration-bf="state=='open'">
+                <field name="state" invisible="True" />
+                <field name="request_date" />
+                <field name="member_id" />
+                <field name="checkout_date" />
+                <field name="stage_id" />
+                <field name="num_books" sum="# Books" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_checkout" model="ir.ui.view">
+        <field name="name">Checkout Form</field>
+        <field name="model">library.checkout</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state"
+                           widget="statusbar"
+                           clickable="True"
+                           statusbar_visible="draft,open,done"/>
+                    <button name="button_done"
+                            string="Return Books"
+                            attrs="{'invisible':[('state', 'in', ['new', 'done'])]}"
+                            class="oe_highlight"
+                    />
+                </header>
+
+                <sheet>
+                    <!-- 智能按钮 -->
+                    <div name="button_box" class="ie_button_box">
+                        <button class="oe_stat_button"
+                                icon="fa-tasks"
+                                help="Other checkouts pending return."
+                                type="action"
+                                name="%(action_other_checkouts_button)d"
+                                context="{'default_member_id': member_id}">
+                            <field string="To Return"
+                                   name="num_other_checkouts"
+                                   widget="statinfo"/>
+                        </button>
+                    </div>
+                    <field name="member_image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="member_id" class="oe_edit_only"/>
+                        <h1>
+                            <field name="member_id"/>
+                        </h1>
+                        <h3>
+                            <span class="oe_read_only">By</span>
+                            <label for="user_id" class="oe_edit_only"/>
+                            <field name="user_id" class="oe_inline"/>
+                        </h3>
+                    </div>
+                    <!-- More elements will be added from here... -->
+                    <group name="group_top">
+                        <group name="group_col1"
+                               col="4"
+                               colspan="2"
+                               string="Group 1">
+                            <field name="user_id"/>
+                            <field name="state"/>
+                            <field name="checkout_date"/>
+                            <field name="closed_date"/>
+                        </group>
+                        <group name="group_col2" string="Group2"/>
+                    </group>
+                    <notebook>
+                        <page string="Borrowed Books" name="page_lines">
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="book_id"/>
+                                </tree>
+                                <!--                                <form>-->
+                                <!--                                    <field name="book_id"/>-->
+                                <!--                                </form>-->
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

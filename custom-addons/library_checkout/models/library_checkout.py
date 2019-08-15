@@ -78,9 +78,6 @@ class Checkout(models.Model):
         # Code after write: can use 'self',with the updated values
         return True
 
-    # if not self.env.context.get('_library_checkout_writing'):
-    #     self.with_context(_library_checkout_writing=True).write(some_values)
-
     def button_done(self):
         Stage = self.env['library.checkout.stage']
         done_stage = Stage.search(
@@ -98,7 +95,7 @@ class Checkout(models.Model):
     def _compute_num_other_checkouts(self):
         for rec in self:
             domain = [
-                ('member)id', '=', rec.member_id.id),
+                ('member_id', '=', rec.member_id.id),
                 ('state', 'in', ['open']),
                 ('id', '!=', rec.id)]
             rec.num_other_checkouts = self.search_count(domain)

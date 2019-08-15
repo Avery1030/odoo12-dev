@@ -25,25 +25,23 @@
     </record>
 
     <record id="view_form_checkout" model="ir.ui.view">
-        <field name="name">Checkout Form</field>
         <field name="model">library.checkout</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="state"
+                    <field name="state" invisible="True"/>
+                    <button name="button_done"
+                            type="object"
+                            string="Returned"
+                            states="open,cancel"
+                            class="oe_highlight"/>
+                    <field name="stage_id"
                            widget="statusbar"
                            clickable="True"
                            statusbar_visible="draft,open,done"/>
-                    <button name="button_done"
-                            string="Return Books"
-                            attrs="{'invisible':[('state', 'in', ['new', 'done'])]}"
-                            class="oe_highlight"
-                    />
                 </header>
-
                 <sheet>
-                    <!-- 智能按钮 -->
-                    <div name="button_box" class="ie_button_box">
+                    <div name="button_box" class="oe_button_box">
                         <button class="oe_stat_button"
                                 icon="fa-tasks"
                                 help="Other checkouts pending return."
@@ -62,12 +60,11 @@
                             <field name="member_id"/>
                         </h1>
                         <h3>
-                            <span class="oe_read_only">By</span>
+                            <span class="oe_read_only">By </span>
                             <label for="user_id" class="oe_edit_only"/>
                             <field name="user_id" class="oe_inline"/>
                         </h3>
                     </div>
-                    <!-- More elements will be added from here... -->
                     <group name="group_top">
                         <group name="group_col1"
                                col="4"
@@ -86,13 +83,11 @@
                                 <tree>
                                     <field name="book_id"/>
                                 </tree>
-                                <!--                                <form>-->
-                                <!--                                    <field name="book_id"/>-->
-                                <!--                                </form>-->
                             </field>
                         </page>
                     </notebook>
                 </sheet>
+
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="activity_ids" widget="mail_activity"/>

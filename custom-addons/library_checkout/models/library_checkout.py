@@ -100,7 +100,7 @@ class Checkout(models.Model):
                 ('id', '!=', rec.id)]
             rec.num_other_checkouts = self.search_count(domain)
 
-    num_books = fields.Integer(compute='_compute_num_books')
+    num_books = fields.Integer(compute='_compute_num_books', store=True)
 
     @api.depends('line_ids')
     def _compute_num_books(self):

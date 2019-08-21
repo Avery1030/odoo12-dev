@@ -11,3 +11,12 @@ class Main(http.Controller):
             'library_website.index',
             {'docs': checkouts}
         )
+
+    @http.route('/checkout/<model("library.checkout"):doc>',
+                auth='user',
+                website=True)
+    def checkout(self, doc, **kwargs):
+        return http.request.render(
+            'library_website.checkout',
+            {'doc': doc}
+        )

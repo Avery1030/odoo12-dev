@@ -19,4 +19,13 @@
             </div>
         </t>
     </template>
+    <template id="checkout" name="Checkout Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="container">
+                <h1 t-field="doc.request_date"/>
+                <h5>Member: <span t-field="doc.member_id"/></h5>
+                <h5>Stage: <span t-field="doc.stage_id"/></h5>
+            </div>
+        </t>
+    </template>
 </odoo>

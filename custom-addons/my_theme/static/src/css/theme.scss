@@ -1,0 +1,42 @@
+.services {
+    background: #EAEAEA;
+    padding: 1em;
+    margin: 2em 0 3em;
+    li {
+        display: block;
+        position: relative;
+        background-color: #16a085;
+        color: #FFF;
+        padding: 2em;
+        text-align: center;
+        margin-bottom: 1em;
+        font-size: 1.5em;
+    }
+}
+.oe_structure{
+    img{
+        width:200px;
+        height:150px;
+    }
+}
+
+.snippet_testimonial {
+  border: 1px solid #EAEAEA;
+  padding: 20px;
+}
+
+// 这些行将为代码片段添加默认样式。现在让我们为这些选项创建自定义规则。
+
+.snippet_testimonial {
+  border: 1px solid #EAEAEA;
+  padding: 20px;
+
+  &.opt_shadow img {
+    box-shadow: 0 2px 5px rgba(51, 51, 51, 0.4);
+  }
+
+  &.opt_grey_bg {
+    border: none;
+    background-color: #EAEAEA;
+  }
+}

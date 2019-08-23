@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="mystyle" name="My style" inherit_id="website.assets_frontend">
+        <xpath expr="link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/my_theme/static/src/css/theme.scss"/>
+
+        </xpath>
+    </template>
+    <template id="my_js" inherit_id="website.assets_editor" name="My Js">
+        <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/my_theme/static/src/js/tutorial_editor.js"/>
+        </xpath>
+    </template>
+</odoo>
